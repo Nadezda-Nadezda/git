@@ -52,7 +52,11 @@ jobs:
       shell: powershell
       run: |
         & .\git-sdk-64-minimal\usr\bin\bash.exe -lc @"
-          ls -lart && find -name artifacts.tar.gz
+          set -x
+          find -name artifacts.tar.gz
+          pwd
+          ls -l ${{runner.workspace}}
+          ls -l ${{github.workspace}}
           test -f artifacts.tar.gz || {
             echo No test artifacts found\; skipping >&2
             exit 0
