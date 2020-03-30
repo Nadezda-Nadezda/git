@@ -12,10 +12,10 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build
       run: |
-        dir ..\git-sdk-64-minimal
-        dir ..\git-sdk-64-minimal\usr
-        dir ..\git-sdk-64-minimal\usr\bin
-        & ..\git-sdk-64-minimal\usr\bin\bash.exe -lc @"
+        dir .\git-sdk-64-minimal
+        dir .\git-sdk-64-minimal\usr
+        dir .\git-sdk-64-minimal\usr\bin
+        & .\git-sdk-64-minimal\usr\bin\bash.exe -lc @"
         printf '%s\n' /git-sdk-64-minimal/ >>.git/info/exclude
 
           ci/make-test-artifacts.sh artifacts
@@ -49,7 +49,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Test
       run: |
-        & ..\git-sdk-64-minimal\usr\bin\bash.exe -lc @"
+        & .\git-sdk-64-minimal\usr\bin\bash.exe -lc @"
           test -f artifacts.tar.gz || {
             echo No test artifacts found\; skipping >&2
             exit 0
