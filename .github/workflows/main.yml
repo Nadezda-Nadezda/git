@@ -55,8 +55,8 @@ jobs:
           set -x
           find -name artifacts.tar.gz
           pwd
-          ls -l ${{runner.workspace}}
-          ls -l ${{github.workspace}}
+          ls -l $RUNNER_WORKSPACE
+          ls -l $GITHUB_WORKSPACE
           test -f artifacts.tar.gz || {
             echo No test artifacts found\; skipping >&2
             exit 0
