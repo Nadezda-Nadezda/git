@@ -47,7 +47,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: windows-artifacts
-        path: ${{runner.workspace}}
+        path: ${{github.workspace}}
     - name: Test
       shell: powershell
       run: |
