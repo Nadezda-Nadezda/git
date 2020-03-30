@@ -11,6 +11,7 @@ jobs:
       run: a=git-sdk-64-minimal && mkdir -p $a && curl -# https://wingit.blob.core.windows.net/ci-artifacts/$a.tar.xz | tar -C $a -xJf - && ls -la git-sdk-64-minimal/
     - uses: actions/checkout@v1
     - name: Build
+      shell: powershell
       run: |
         dir .\git-sdk-64-minimal
         dir .\git-sdk-64-minimal\usr
@@ -48,6 +49,7 @@ jobs:
         path: ${{runner.workspace}}
     - uses: actions/checkout@v1
     - name: Test
+      shell: powershell
       run: |
         & .\git-sdk-64-minimal\usr\bin\bash.exe -lc @"
           test -f artifacts.tar.gz || {
