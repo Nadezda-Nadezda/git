@@ -136,21 +136,21 @@ then
 	MAKEFLAGS="$MAKEFLAGS --jobs=10"
 	test windows_nt != "$CI_OS_NAME" ||
 	GIT_TEST_OPTS="--no-chain-lint --no-bin-wrappers $GIT_TEST_OPTS"
-elif test run = "$GITHUB_ACTION"
+elif test true = "$GITHUB_ACTIONS"
 then
 	CI_TYPE=github-actions
 	CI_BRANCH="$GITHUB_REF"
 	CI_COMMIT="$GITHUB_SHA"
-	CI_OS_NAME="$RUNNER_OS"
+	CI_OS_NAME="$(echo "$RUNNER_OS" | tr A-Z a-z)"
 	CI_REPO_SLUG="$GITHUB_REPOSITORY"
-	CI_JOB_ID=
+	CI_JOB_ID="$GITHUB_RUN_ID"
 
 	cache_dir="$HOME/none"
 
 	export GIT_PROVE_OPTS="--timer --jobs 10"
 	export GIT_TEST_OPTS="--verbose-log -x"
 	MAKEFLAGS="$MAKEFLAGS --jobs=10"
-	test Windows != "$CI_OS_NAME" ||
+	test windows != "$CI_OS_NAME" ||
 	GIT_TEST_OPTS="--no-chain-lint --no-bin-wrappers $GIT_TEST_OPTS"
 else
 	echo "Could not identify CI type" >&2
