@@ -8,7 +8,7 @@ jobs:
     steps:
     - name: Download git-sdk-64-minimal
       shell: bash
-      run: a=git-sdk-64-minimal && mkdir -p $a && curl -# https://wingit.blob.core.windows.net/ci-artifacts/$a.tar.xz | tar -C $a -xJf - && ls -la git-sdk-64-minimal/
+      run: a=git-sdk-64-minimal && mkdir -p $a && curl -# https://wingit.blob.core.windows.net/ci-artifacts/$a.tar.xz | tar -C $a -xJf - && pwd && ls -la git-sdk-64-minimal/
     - uses: actions/checkout@v1
     - name: Build
       shell: powershell
