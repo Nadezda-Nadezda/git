@@ -7,20 +7,8 @@ jobs:
     runs-on: [windows-latest]
     steps:
     - name: Download git-sdk-64-minimal
-      run: |
-        $urlbase = "https://dev.azure.com/git-for-windows/git/_apis/build/builds"
-        $id = ((Invoke-WebRequest -UseBasicParsing "${urlbase}?definitions=22&statusFilter=completed&resultFilter=succeeded&`$top=1").content | ConvertFrom-JSON).value[0].id
-        $downloadUrl = ((Invoke-WebRequest -UseBasicParsing "${urlbase}/$id/artifacts").content | ConvertFrom-JSON).value[1].resource.downloadUrl
-        (New-Object Net.WebClient).DownloadFile($downloadUrl,"git-sdk-64-minimal.zip")
-        Expand-Archive git-sdk-64-minimal.zip -DestinationPath . -Force
-        Remove-Item git-sdk-64-minimal.zip
-        Remove-Item git-sdk-64-minimal\.git
-        dir
-    - name: Upload git-sdk-64-minimal as artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: git-sdk-64-minimal
-        path: git-sdk-64-minimal
+      shell: bash
+      run: a=git-sdk-64-minimal && mkdir -p $a && curl -# https://wingit.blob.core.windows.net/ci-artifacts/$a.tar.xz | tar -C $a -xJf - && ls -la git-sdk-64-minimal/
     - uses: actions/checkout@v1
     - name: Build
       run: |
@@ -51,10 +39,8 @@ jobs:
         nr: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     steps:
     - name: Download git-sdk-64-minimal
-      uses: actions/download-artifact@v1
-      with:
-        name: git-sdk-64-minimal
-        path: git-sdk-64-minimal
+      shell: bash
+      run: a=git-sdk-64-minimal && mkdir -p $a && curl -# https://wingit.blob.core.windows.net/ci-artifacts/$a.tar.xz | tar -C $a -xJf - && ls -la git-sdk-64-minimal/
     - name: Download build artifacts
       uses: actions/download-artifact@v1
       with:
